@@ -29,32 +29,34 @@ function printResults(resultObj) {
   var titleEl = document.createElement('h3');
   titleEl.textContent = resultObj.dt_txt;
 
+  
+ var iconEl = document.createElement('img');
+iconEl.src='https://openweathermap.org/img/wn/' + resultObj.weather[0].icon +'@2x.png';
+titleEl.appendChild(iconEl);
+
+  console.log(iconEl.innerHTML, 'line 37');
   var bodyContentEl = document.createElement('p');
   bodyContentEl.innerHTML =
     '<strong>Temp:</strong> ' + resultObj.main.temp + '<br/>';
 
-  if (resultObj.main.feels_like) {
+  if (resultObj.main.humidity) {
     bodyContentEl.innerHTML +=
-      '<strong> Feels like:</strong> ' + resultObj.main.feels_like + '<br/>';
+      '<strong> Humidity:</strong> ' + resultObj.main.humidity + '%<br/>';
   } else {
     bodyContentEl.innerHTML +=
-      '<strong> Feels like:</strong> No subject for this entry.';
+      '<strong> Humidity:</strong> No humidity for this entry.';
   }
 
-  if (resultObj.weather[0].description) {
+  if (resultObj.wind.speed) {
     bodyContentEl.innerHTML +=
-      '<strong> Description:</strong> ' + resultObj.weather[0].description;
+      '<strong> Wind Speed:</strong> ' + resultObj.wind.speed+ ' mph';
   } else {
     bodyContentEl.innerHTML +=
-      '<strong> Description:</strong>  No description for this entry.';
+      '<strong> Wind Speed:</strong>  No wind speed for this entry.';
   }
 
-  var linkButtonEl = document.createElement('a');
-  linkButtonEl.textContent = 'Read More';
-  linkButtonEl.setAttribute('href', resultObj.url);
-  linkButtonEl.classList.add('btn', 'btn-dark');
 
-  resultBody.append(titleEl, bodyContentEl, linkButtonEl);
+  resultBody.append(titleEl, bodyContentEl);
 
   resultContentEl.append(resultCard);
 }
